@@ -16,32 +16,22 @@
 
 static int ft_strisnum(const char *str)
 {
-	int	len;
 	int i;
-	int signcount;
 
-	len = 0;
 	i = 0;
-	signcount = 0;
+	if (str[i] == '-' || str[i] == '+')
+	{	
+		i++;
+	}
 	while (str[i] != '\0')
 	{
-		if (str[i] == '-' || str[i] == '+')
-		{	
-			signcount += 1;
-			i++;
-		}
-		while (str[i] >= '0' && str[i] <= '9')
-			i++;
-		if (str[i] == '-' || str[i] == '+')
+		
+		if (str[i] < '0' && str[i] > '9')
 			return 0;
-		else
-			return 0;
+		i++;
 			
 	}
-	if (signcount == 1 || signcount == 0)
-		return (1);
-	else    
-		return (0);
+	return 1;
 }
 
 int	ft_atoi(const char *str)
