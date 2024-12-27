@@ -15,10 +15,6 @@
 #include <stdio.h>
 
 #include "libft.h"
-#include "ft_split.c"
-#include "ft_strchr.c"
-#include "ft_strlen.c"
-#include "ft_substr.c"
 
 static int	ft_strisnum(const char *str)
 {
@@ -51,6 +47,47 @@ static int	ft_isint(long nbr)
 		return (0);
 }
 
+static int ft_argsasstr(char *argv[])
+{
+	int totalargs;
+	int *a;
+	char **subargs;
+	long value;
+	int	i;
+
+	totalargs = (int)ft_countsubstr(argv[1], ' ');
+	a = (int *)malloc(totalargs * sizeof(int));
+	if(!a)
+		return 0;
+	subargs = ft_split(argv[1], ' ');
+	if(!subargs)
+	{
+		free(a);
+		return 0;
+	}
+	i = 0;
+	while(i < totalargs)
+	{
+		if(ft_strisnum(subargs[i]))
+		{
+			value = ft_atol(subargs[i]);
+			if(ft_isint(value) == 1)
+				a[i] = value;
+			else
+			{
+				free(a);
+				free(subargs);
+				return 0;
+			}
+		}
+		free(subargs[i]);
+		i++;
+	}
+	free(subargs);
+	free(a);
+	return 1;
+}
+
 int	main(int argc, char *argv[])
 {
 	int		i;
@@ -63,30 +100,12 @@ int	main(int argc, char *argv[])
 	ins = 0;
 	value = 0;
 	sizea = argc - 1; 
-	//a = malloc(sizeof(int) * sizea);
-	//if (!a)
-	//	return (0);
-	printf("nummber of args excluding name is: %d \n", sizea);
+	a = malloc(sizeof(int) * sizea);
+	if (!a)
+		return (0);
 	if (argc == 2)
-	{
-		char **strs = ft_split(argv[1], ' ');
-		char **temp = strs;
-
-		while(*strs != NULL)
-		{
-			printf("%s \n", *strs);
-			strs++;
-		}
-		strs = temp;
-		while(*strs != NULL) 
-		{
-			free(*strs);
-			strs++;
-		}
-		free(temp);
-	}
-	/*
-	while (i < argc)
+		ft_argsasstr(argv);
+	while (i < argc && argc != 2)
 	{
 		if (ft_strisnum(argv[i]) == 1)
 		{
@@ -114,10 +133,10 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (i < sizea)
 	{
-		printf("index: %d == %d\n", i, a[i]);
+		printf("\nindex: %d == %d\n", i, a[i]);
 		i++;
 	}
-	*/
-	//free(a);
+	
+	free(a);
 	return (0);
 }

@@ -20,10 +20,10 @@
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *str, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 long	ft_atol(const char *str);
+size_t	ft_countsubstr(char const *str, char c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 
 #endif

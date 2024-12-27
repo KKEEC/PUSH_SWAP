@@ -1,30 +1,24 @@
-# Variables
-NAME = pushswap
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I .
-LIBFT_SRC = libft.c
-PRINTFT_SRC = printft.c
-PUSHSWAP_SRC = main.c other_source_files.c
-LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
-PRINTFT_OBJ = $(PRINTFT_SRC:.c=.o)
-PUSHSWAP_OBJ = $(PUSHSWAP_SRC:.c=.o)
+NAME = push_swap
 
-# Rules
-all: $(NAME)
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(LIBFT_OBJ) $(PRINTFT_OBJ) $(PUSHSWAP_OBJ)
-    $(CC) $(CFLAGS) -o $(NAME) $(LIBFT_OBJ) $(PRINTFT_OBJ) $(PUSHSWAP_OBJ)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.c
-    $(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-    rm -f $(LIBFT_OBJ) $(PRINTFT_OBJ) $(PUSHSWAP_OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
-    rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
+
+all: $(NAME)
 
 .PHONY: all clean fclean re
